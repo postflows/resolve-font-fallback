@@ -24,15 +24,19 @@ Copy the script to Resolve’s Fusion Scripts folder:
 
 ### 2. Optional: pyperclip (for clipboard copy)
 
-To enable **Copy Missing** (copy list of missing fonts to clipboard), install `pyperclip` into the Python interpreter used by Resolve:
-
-**macOS (Resolve’s Python):**
+To enable **Copy Missing** (copy list of missing fonts to clipboard), install `pyperclip`. If you don’t have Python installed, use **Python 3.11–3.13** from [python.org](https://www.python.org/downloads/) (on Windows, check “Add Python to PATH”). Then try the standard method:
 
 ```bash
-/Applications/DaVinci\ Resolve/DaVinci\ Resolve.app/Contents/Libraries/Frameworks/Python.framework/Versions/3.*/bin/python3 -m pip install pyperclip
+pip3 install pyperclip
 ```
 
-**Windows:**
+Then run the script; if “Copy Missing” works, you’re done. If Resolve reports that pyperclip is missing, it may be using its own Python — then install into that interpreter (see Resolve **Preferences → System → General → External scripting** for the path). Example for Resolve’s bundled Python on macOS:
+
+```bash
+/Applications/DaVinci\ Resolve/DaVinci\ Resolve.app/Contents/Libraries/Frameworks/Python.framework/Versions/3.10/bin/python3 -m pip install pyperclip
+```
+
+Windows (adjust path if needed):
 
 ```cmd
 "C:\Program Files\Blackmagic Design\DaVinci Resolve\python.exe" -m pip install pyperclip

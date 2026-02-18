@@ -11,14 +11,34 @@ Scans current timeline for Text+ and MultiText fonts, reports missing fonts/styl
 ## Requirements
 
 - DaVinci Resolve 18+
-- Optional: pyperclip for clipboard copy
+- **Optional:** `pyperclip` for copying the “missing fonts” list to the clipboard. Without it, “Copy Missing” is unavailable; all other features work.
 
 ## Installation
 
-Copy the script to:
+### 1. Copy the script
+
+Copy the script to Resolve’s Fusion Scripts folder:
 
 - **macOS:** `~/Library/Application Support/Blackmagic Design/DaVinci Resolve/Fusion/Scripts/`
 - **Windows:** `C:\ProgramData\Blackmagic Design\DaVinci Resolve\Fusion\Scripts\`
+
+### 2. Optional: pyperclip (for clipboard copy)
+
+To enable **Copy Missing** (copy list of missing fonts to clipboard), install `pyperclip` into the Python interpreter used by Resolve:
+
+**macOS (Resolve’s Python):**
+
+```bash
+/Applications/DaVinci\ Resolve/DaVinci\ Resolve.app/Contents/Libraries/Frameworks/Python.framework/Versions/3.*/bin/python3 -m pip install pyperclip
+```
+
+**Windows:**
+
+```cmd
+"C:\Program Files\Blackmagic Design\DaVinci Resolve\python.exe" -m pip install pyperclip
+```
+
+If you don’t install pyperclip, the script runs normally; only the clipboard copy action will be disabled or show a message.
 
 ## Usage
 

@@ -1461,7 +1461,7 @@ ui = fusion.UIManager
 disp = bmd.UIDispatcher(ui)
 
 win = disp.AddWindow({
-    "WindowTitle": "RMT Font Fallback v1.2",
+    "WindowTitle": "Font Fallback",
     "ID": "FontViewerWin",
     "Geometry": [250, 250, 550, 600]  # Увеличиваем ширину для новой кнопки
 }, main_ui())

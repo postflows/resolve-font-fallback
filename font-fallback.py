@@ -5,7 +5,7 @@
 # ================================================
 
 """
-RMT Font Fallback v1.4
+Font Fallback v1.4
 Advanced font management tool for DaVinci Resolve with comprehensive fallback and restoration system
 
 Original by nizar / version 1.0,
@@ -101,13 +101,13 @@ DEFAULT_REPLACEMENT_STYLE = "Regular"
 
 # Restoration system templates
 RESTORE_TAG_TEMPLATE = """
-[RMT_FONT_RESTORE]
+[PostFlows_FONT_RESTORE]
 original_font: {original_font}
 original_style: {original_style}
 replaced_with: {replacement_font}|{replacement_style}
 timestamp: {timestamp}
 restore_id: {restore_id}
-[/RMT_FONT_RESTORE]"""
+[/PostFlows_FONT_RESTORE]"""
 
 def generate_unique_id():
     """Generate unique ID for restoration session"""
@@ -346,7 +346,7 @@ def save_restoration_log(log):
         desktop_path = os.path.join(home_path, "Desktop")
         log_path = desktop_path if os.path.exists(desktop_path) else home_path
         
-        filename = f"RMT_Font_Restoration_Log_{log['restore_session_id']}.json"
+        filename = f"PostFlows_Font_Restoration_Log_{log['restore_session_id']}.json"
         filepath = os.path.join(log_path, filename)
         
         with open(filepath, 'w', encoding='utf-8') as f:
@@ -374,12 +374,12 @@ def parse_restore_tag_from_comments(node):
     try:
         comments = node.GetInput("Comments") or ""
         
-        if "[RMT_FONT_RESTORE]" in comments and "[/RMT_FONT_RESTORE]" in comments:
-            start_tag = comments.find("[RMT_FONT_RESTORE]")
-            end_tag = comments.find("[/RMT_FONT_RESTORE]")
+        if "[PostFlows_FONT_RESTORE]" in comments and "[/PostFlows_FONT_RESTORE]" in comments:
+            start_tag = comments.find("[PostFlows_FONT_RESTORE]")
+            end_tag = comments.find("[/PostFlows_FONT_RESTORE]")
             
             if start_tag != -1 and end_tag != -1:
-                restore_section = comments[start_tag:end_tag + len("[/RMT_FONT_RESTORE]")]
+                restore_section = comments[start_tag:end_tag + len("[/PostFlows_FONT_RESTORE]")]
                 
                 # Parse parameters using regex
                 original_font = extract_tag_value(restore_section, "original_font")
@@ -407,9 +407,9 @@ def remove_restore_tag_from_comments(node):
     try:
         comments = node.GetInput("Comments") or ""
         
-        if "[RMT_FONT_RESTORE]" in comments and "[/RMT_FONT_RESTORE]" in comments:
-            start_tag = comments.find("[RMT_FONT_RESTORE]")
-            end_tag = comments.find("[/RMT_FONT_RESTORE]") + len("[/RMT_FONT_RESTORE]")
+        if "[PostFlows_FONT_RESTORE]" in comments and "[/PostFlows_FONT_RESTORE]" in comments:
+            start_tag = comments.find("[PostFlows_FONT_RESTORE]")
+            end_tag = comments.find("[/PostFlows_FONT_RESTORE]") + len("[/PostFlows_FONT_RESTORE]")
             
             if start_tag != -1 and end_tag != -1:
                 # Remove the tag section
@@ -740,16 +740,16 @@ def parse_all_restore_tags_from_comments(node):
             # Look for TextBlock line
             if line.startswith('TextBlock:'):
                 text_block = line.replace('TextBlock:', '').strip()
-                # Look for next [RMT_FONT_RESTORE] tag
+                # Look for next [PostFlows_FONT_RESTORE] tag
                 i += 1
-                while i < len(lines) and '[RMT_FONT_RESTORE]' not in lines[i]:
+                while i < len(lines) and '[PostFlows_FONT_RESTORE]' not in lines[i]:
                     i += 1
                 
-                if i < len(lines) and '[RMT_FONT_RESTORE]' in lines[i]:
+                if i < len(lines) and '[PostFlows_FONT_RESTORE]' in lines[i]:
                     # Collect full tag
                     tag_content = []
                     j = i
-                    while j < len(lines) and '[/RMT_FONT_RESTORE]' not in lines[j]:
+                    while j < len(lines) and '[/PostFlows_FONT_RESTORE]' not in lines[j]:
                         tag_content.append(lines[j])
                         j += 1
                     if j < len(lines):
@@ -779,11 +779,11 @@ def parse_all_restore_tags_from_comments(node):
                             tags.append(tag_data)
                         i = j + 1
                         continue
-            elif '[RMT_FONT_RESTORE]' in line:
+            elif '[PostFlows_FONT_RESTORE]' in line:
                 # Tag without TextBlock (legacy format)
                 tag_content = []
                 j = i
-                while j < len(lines) and '[/RMT_FONT_RESTORE]' not in lines[j]:
+                while j < len(lines) and '[/PostFlows_FONT_RESTORE]' not in lines[j]:
                     tag_content.append(lines[j])
                     j += 1
                 if j < len(lines):
@@ -1357,7 +1357,7 @@ def main_ui():
     return ui.VGroup({"Spacing": 10}, [
         # Header
         ui.HGroup({"Spacing": 5, "Weight": 0}, [
-            ui.Label({"Text": "RMT Font", "StyleSheet": START_LOGO_CSS, "Weight": 0}),
+            ui.Label({"Text": "Font", "StyleSheet": START_LOGO_CSS, "Weight": 0}),
             ui.Label({"Text": "Fallback", "StyleSheet": END_LOGO_CSS, "Weight": 0})
         ]),
         
@@ -1461,7 +1461,7 @@ ui = fusion.UIManager
 disp = bmd.UIDispatcher(ui)
 
 win = disp.AddWindow({
-    "WindowTitle": "Font Fallback",
+    "WindowTitle": "PostFlows Font Fallback",
     "ID": "FontViewerWin",
     "Geometry": [250, 250, 550, 600]  # Увеличиваем ширину для новой кнопки
 }, main_ui())

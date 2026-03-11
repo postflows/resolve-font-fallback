@@ -10,7 +10,7 @@ Scans current timeline for Text+ and MultiText fonts, reports missing fonts/styl
 
 ## Requirements
 
-- DaVinci Resolve 18+
+- DaVinci Resolve 20+ (Studio Version)
 - **Optional:** `pyperclip` for copying the “missing fonts” list to the clipboard. Without it, “Copy Missing” is unavailable; all other features work.
 
 ## Installation
